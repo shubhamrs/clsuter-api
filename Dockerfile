@@ -1,10 +1,14 @@
 FROM python:3.8-slim
 
+WORKDIR /usr/src/app
 
-COPY . /app
 COPY requirements.txt ./
-WORKDIR /app
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
-EXPOSE 5000 
-# ENTRYPOINT [ "python" ] 
-CMD [ "python app.py" ] 
+RUN pip install kubernetes
+
+COPY app1.py .
+
+EXPOSE 5000
+
+CMD [ "python", "./app1.py" ]
